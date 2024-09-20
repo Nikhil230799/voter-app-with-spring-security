@@ -1,7 +1,6 @@
 package com.example.securityconfig;
 
-import java.util.Collection;
-
+import java.util.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,27 +8,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.entity.Users;
 
-    
-
 public class CustomeUserDetails implements UserDetails {
 
     Users user;
 
-    public CustomeUserDetails(Users user)
-    {
-        user=this.user;
+    public CustomeUserDetails(Users user) {
+        this.user = user;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        
+        SimpleGrantedAuthority simpleGrantedAuthority=new SimpleGrantedAuthority(user.getUsr_role());
+        return List.of(simpleGrantedAuthority);
     }
 
     @Override
     public String getPassword() {
-       return user.getUsr_password();
+        return user.getUsr_password();
     }
 
     @Override
@@ -40,18 +35,18 @@ public class CustomeUserDetails implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         return true;
-        
+
     }
 
     @Override
     public boolean isAccountNonLocked() {
-  
+
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-      return true;
+        return true;
     }
 
     @Override
@@ -59,5 +54,4 @@ public class CustomeUserDetails implements UserDetails {
         return true;
     }
 
-    
 }

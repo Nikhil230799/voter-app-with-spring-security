@@ -1,11 +1,13 @@
 package com.example.entity;
 
+
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -18,10 +20,12 @@ public class Users {
     private int usr_id;
     @Column (unique = true)
     @Size(min = 4, max = 12, message = "Username size must be between 4 to 12 characters")
+    @NotBlank(message = "Username cannot be empty")
     private String usr_username;
-    @Column
-    @Size(min = 8, max=20, message = "Password must be at least 8 characters long")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "Password must be alphanumeric")
+    @Column/* (name="usr_password", length = 255) */
+    @Length(min = 8, max=200, message = "Password must be at least 8 characters long")
+    // @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "Password must be alphanumeric")
+    @NotBlank(message = "Password cannot be empty")
     private String usr_password;
     @Column(unique = true)
     @NotBlank(message = "Email cannot be empty")
