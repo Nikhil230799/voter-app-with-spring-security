@@ -24,7 +24,7 @@ public class Users {
     private String usr_username;
     @Column/* (name="usr_password", length = 255) */
     @Length(min = 8, max=200, message = "Password must be at least 8 characters long")
-    // @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "Password must be alphanumeric")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "Password must be alphanumeric")
     @NotBlank(message = "Password cannot be empty")
     private String usr_password;
     @Column(unique = true)

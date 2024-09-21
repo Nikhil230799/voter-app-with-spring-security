@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.entity.Users;
 
-public class CustomeUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
-    Users user;
+    private Users user;
 
-    public CustomeUserDetails(Users user) {
+    public CustomUserDetails(Users user) {
         this.user = user;
     }
 
@@ -52,6 +52,20 @@ public class CustomeUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomeUserDetails [user=" + user + ", getAuthorities()=" + getAuthorities() + ", getPassword()="
+                + getPassword() + ", getUsername()=" + getUsername() + ", isAccountNonExpired()="
+                + isAccountNonExpired() + ", isAccountNonLocked()=" + isAccountNonLocked()
+                + ", isCredentialsNonExpired()=" + isCredentialsNonExpired() + ", isEnabled()=" + isEnabled()
+                + ", getUser()=" + getUser() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+                + ", toString()=" + super.toString() + "]";
     }
 
 }

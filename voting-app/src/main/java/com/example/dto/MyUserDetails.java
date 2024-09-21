@@ -2,7 +2,7 @@ package com.example.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class UserDetails {
+public class MyUserDetails {
     
     @NotBlank(message = "Username cannot be empty")
     private String username;
