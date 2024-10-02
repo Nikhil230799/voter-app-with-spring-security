@@ -1,0 +1,32 @@
+
+    <title>{{title}}</title>
+
+
+<div>
+
+    <div class="main-div">
+        <!-- <app-navbar ></app-navbar> -->
+        <div class="nav-class mt-2">
+            <a [routerLink]="['/login']" routerLinkActive="active"><button type="button"
+                    class="btn-custom m-2 p-2">login</button></a>
+            <a [routerLink]="['/about']" routerLinkActive="active"><button type="button" class="btn-custom m-2 p-2">about us</button></a>
+            <a [routerLink]="['/queries']"><button type="button" class="btn-custom m-2 p-2">queries</button></a>
+            <a [routerLink]="['/awaited']"><button type="button" class="btn-custom m-2 p-2">coming soon</button></a>
+
+        </div>
+
+        <div class="content-class">
+            <div class="content">
+                <h2 class="m-0">WELCOME TO ONLINE VOTING PORTAL</h2>
+                <h2>Vote Smart, Vote Secure, Vote Online!</h2>
+                <a [routerLink]="['/login']"><button type="button" class="m-1">Login</button></a>
+                <a [routerLink]="['/register']"><button type="button" class=" m-1">Register</button></a>
+            </div>
+            <div class="img-class">
+                <img class="image" src="../../../assets/images/resize-1727596395267690737onlinevote.png"
+                    alt="voter image">
+            </div>
+
+        </div>
+    </div>
+</div>

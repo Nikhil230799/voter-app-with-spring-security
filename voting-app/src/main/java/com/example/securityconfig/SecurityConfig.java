@@ -1,15 +1,11 @@
 package com.example.securityconfig;
 
-import javax.swing.SwingWorker.StateValue;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jms.JmsProperties.Listener.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -57,12 +53,13 @@ public class SecurityConfig {
             authorize.requestMatchers("/admin/**").hasAnyAuthority("admin");
             authorize.anyRequest().authenticated();
         }).sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                /* .exceptionHandling(ex->ex.authenticationEntryPoint(point)) */
         // httpBasic(Customizer.withDefaults()).
-                // formLogin(formLogin -> formLogin
-                // .loginPage("/auth/dologin")
-                // .loginProcessingUrl("/auth/dologin")
-                // .loginPage("http://Asddf")
-                // .permitAll());
+        // formLogin(formLogin -> formLogin
+        // .loginPage("/auth/dologin")
+        // .loginProcessingUrl("/auth/dologin")
+        // .loginPage("http://Asddf")
+        // .permitAll());
         ;
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

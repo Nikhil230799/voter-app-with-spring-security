@@ -20,7 +20,6 @@ import com.example.dto.MyUserDetails;
 import com.example.entity.Users;
 import com.example.jwtutils.JwtService;
 import com.example.repository.UsersRepository;
-import com.example.securityconfig.CustomUserDetails;
 import com.example.securityconfig.CustomUserService;
 
 import jakarta.validation.Valid;

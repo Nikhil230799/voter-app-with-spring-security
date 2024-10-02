@@ -5,6 +5,9 @@ public class Response {
     public String responseDesc;
     public Object data;
 
+    public Response() {
+    }
+
     public int getResponseCode() {
         return responseCode;
     }

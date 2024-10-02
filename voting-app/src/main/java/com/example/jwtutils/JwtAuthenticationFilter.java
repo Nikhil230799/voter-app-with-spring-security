@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import com.example.exception.EmptyAuthHeaderException;
+
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -29,10 +31,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Lazy
     public JwtAuthenticationFilter(
-        JwtService jwtService,
-        UserDetailsService userDetailsService,
-        HandlerExceptionResolver handlerExceptionResolver
-    ) {
+            JwtService jwtService,
+            UserDetailsService userDetailsService,
+            HandlerExceptionResolver handlerExceptionResolver) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
         this.handlerExceptionResolver = handlerExceptionResolver;
@@ -40,32 +41,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-        @NonNull HttpServletRequest request,
-        @NonNull HttpServletResponse response,
-        @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
-        
-        if (authHeader == null ) {
+
+        if (authHeader == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
             final String jwt = authHeader;
+            if (authHeader.trim().length() <= 0) {
+                throw new EmptyAuthHeaderException("Jwt token is required for authentication");
+            }
             final String username = jwtService.extractUsername(jwt);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if (username != null && authentication == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                System.out.println(userDetails);
+
                 if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
-                            userDetails.getAuthorities()
-                    );
+                            userDetails.getAuthorities());
 
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
@@ -77,5 +79,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
     }
-    
+
 }
