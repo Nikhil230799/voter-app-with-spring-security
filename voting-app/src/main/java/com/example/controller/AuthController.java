@@ -24,6 +24,7 @@ import com.example.securityconfig.CustomUserService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -90,8 +91,8 @@ public class AuthController {
             userDetailsauth = customUserService.loadUserByUsername(userDetails.getUsername());
 
         } catch (AuthenticationException e) {
-            return new ResponseEntity<>(new Response(401, "User Details are Invalid", e.getMessage()),
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(202, "User details are invalid", e.getMessage()),
+                    HttpStatus.ACCEPTED);
         }
         System.out.println(userDetailsauth);
         if (auth.isAuthenticated()) {

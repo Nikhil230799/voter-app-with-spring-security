@@ -9,22 +9,32 @@
             <div class="right-div">
 
                 <div class="login-img">
-                    <img  src="../../../assets/images/login.png" alt="">
+                    <img src="../../../assets/images/login.png" alt="">
                 </div>
 
-                <form action="">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your username</mat-label>
-                        <input type="text" matInput placeholder="Username">
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your password</mat-label>
-                        <input type="password" matInput placeholder="Password">
-                    </mat-form-field>
+                <form [formGroup]="userForm" (ngSubmit)="submitForm()">
 
-                    <div class="example-button-row">
-                        <button mat-flat-button type="submit" class="m-1">login</button>
+                    <mat-form-field appearance="outline" style="margin-bottom: -1.05em ;">
+                        <mat-label>Enter your username</mat-label>
+                        <input type="text" matInput placeholder="Username" id="username" formControlName="username">
+                    </mat-form-field>
+                    <div *ngIf="userForm?.get('username')?.invalid && (userForm?.get('username')?.touched ||userForm?.get('username')?.dirty) "
+                        class="text-danger m-0 p-0" style="font-weight: lighter; font-size: 15px;">
+                        <span *ngIf="userForm.controls['username'].errors?.['required']"> Name is required.</span>
+                        <span *ngIf="userForm.controls['username'].errors?.['minlength']">Minimum length is 4.</span>
+                    </div>
+                    <br>
+                    <mat-form-field appearance="outline" style="margin-bottom: -1.25em ;">
+                        <mat-label>Enter your password</mat-label>
+                        <input type="password" matInput placeholder="Password" id="password" formControlName="password">
+                    </mat-form-field>
+                    <div *ngIf="userForm?.get('password')?.invalid && (userForm?.get('password')?.touched ||userForm?.get('password')?.dirty) "
+                        class="text-danger m-0 p-0" style="font-weight: lighter; font-size: 15px;">
+                        <span *ngIf="userForm.controls['password'].errors?.['required']"> Password is required.</span>
+                    </div>
+
+                    <div class="example-button-row mt-3">
+                        <button mat-flat-button  class="m-1">login</button>
                         <button mat-flat-button type="reset" class="m-1">reset</button>
                     </div>
                 </form>
