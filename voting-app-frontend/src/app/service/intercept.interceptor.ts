@@ -9,8 +9,8 @@ export const interceptInterceptor: HttpInterceptorFn = (req, next) => {
     setHeaders: {
        'Authorization': `${token}`,
        'Content-Type':  'text/plain',
-      //  'Access-Control-Allow-Headers': 'Content-Type',
-      //  'Cache-Control': 'max-age=3600'
+       'Access-Control-Allow-Headers': 'Content-Type',
+       'Cache-Control': 'max-age=3600'
     }
   })
   //  clonereq.headers.append()

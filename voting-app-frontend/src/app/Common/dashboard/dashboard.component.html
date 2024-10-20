@@ -1,8 +1,30 @@
 <app-navbar></app-navbar>
-<p>dashboard works!</p>
-<div>
-    <button (click)="callusercontroller()">submit</button>
+<p>Welcome </p>
+<div class="container md-8">
+
+    <!-- <li *ngFor="let candiate of candidates">
+       Name: {{ candiate.cd_name }}, id: {{ candiate.cd_id}} 
+
+      </li> -->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+
+            </tr>
+        </thead>
+        <tbody *ngFor="let candiate of candidates">
+            <tr>
+                <td>{{candiate.cd_id}}</td>
+                <td>{{ candiate.cd_name }}</td>
+                <td><input type="radio"   name="candiate"/></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<div>
+<div style="text-align: center;">
     <button (click)="logout()">logout</button>
 </div>

@@ -23,7 +23,7 @@ public class CustomUserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User does not exists");
         }
-        
+
         CustomUserDetails customeUserDetails = new CustomUserDetails(user);
 
         return customeUserDetails;

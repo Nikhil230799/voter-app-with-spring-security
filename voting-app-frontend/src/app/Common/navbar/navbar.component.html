@@ -16,13 +16,26 @@
         </li>
         <li class="nav-item px-2">
           <div style="display: flex; align-items: center;justify-content: center; ">
-            <img src="../../../assets/images/image.png" alt="about us" class="icon-style px-0">
+            <img src="../../../assets/images/about us.png" alt="about us" class="icon-style px-0">
             <a class="nav-link active px-0" routerLink="/about">about us</a>
             </div>
         </li>
-
+        @if (!this.showUrl) {
+        <li class="nav-item px-2">
+          <div style="display: flex; align-items: center;justify-content: center; ">
+            <img src="../../../assets/images/loginlogo.png" alt="about us" class="icon-style px-0">
+            <a class="nav-link active px-0" routerLink="/login">Login</a>
+            </div>
+        </li>}
+        @if (this.showUrl)
+        {<li class="nav-item px-2">
+          <div style="display: flex; align-items: center;justify-content: center; ">
+            <img src="../../../assets/images/register.png" alt="about us" class="icon-style px-0">
+            <a class="nav-link active px-0" routerLink="/register">Register</a>
+            </div>
+        </li>}
+        
       </ul>
-
     </div>
   </div>
 </nav>
