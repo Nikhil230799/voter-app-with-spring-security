@@ -35,7 +35,7 @@ public class Users {
     @NotBlank(message = "Email cannot be empty")
     @Pattern(regexp = "^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", message = "Email is not valid")
     private String usr_email;
-    @Column
+    @Column(unique = true)
     @Pattern(regexp = "^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}$", message = "Phone number must be in valid format")
     @NotEmpty(message = "contact number cannot be empty")
     private String usr_phoneNo;

@@ -1,7 +1,5 @@
 package com.example.exception;
 
-
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
+import java.util.*;
 
 import com.example.common.Response;
 
@@ -17,10 +16,13 @@ import com.example.common.Response;
 @ControllerAdvice
 public class customExceptionHandler extends RuntimeException {
 
-    @ExceptionHandler(value = DataIntegrityViolationException.class)
-    public ResponseEntity<Object> DataIntegrityViolationExceptionHandler() {
-        Response response = new Response(409, "User is already registered", null);
-        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    @ExceptionHandler(UniqueConstraintViolationException.class)
+    public ResponseEntity<Response> handleUniqueConstraintViolation(UniqueConstraintViolationException ex) {
+        Map<String, String> mapResponse = new HashMap<>();
+        mapResponse.put("field", ex.getFieldName());
+        mapResponse.put("error", ex.getMessage());
+        Response response = new Response(409, getLocalizedMessage(), mapResponse);
+        return new ResponseEntity<Response>(response, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
@@ -59,9 +61,4 @@ public class customExceptionHandler extends RuntimeException {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = EmptyAuthHeaderException.class)
-    public ResponseEntity<Object> EmptyAuthHeaderException() {
-        Response response = new Response(500, "Token cannot be null", null);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
 }

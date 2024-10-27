@@ -6,7 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
-import java.util.Date;
+import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -14,6 +14,8 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.example.securityconfig.CustomUserDetails;
 
 @Service
 public class JwtService {
@@ -33,8 +35,13 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(CustomUserDetails userDetails) {
+        // System.out.println(userDetails.getUser().ge+"thtkherkerkerrekffni");
+        Map<String, Object> Claims = new HashMap<String, Object>();
+        Claims.put("role", userDetails.getUser().getUsr_role());
+        Claims.put("email", userDetails.getUser().getUsr_email());
+        Claims.put("phoneno", userDetails.getUser().getUsr_phoneNo());
+        return generateToken(Claims, userDetails);
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {

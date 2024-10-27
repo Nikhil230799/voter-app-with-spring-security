@@ -20,20 +20,26 @@
             <a class="nav-link active px-0" routerLink="/about">about us</a>
             </div>
         </li>
-        @if (!this.showUrl) {
+        @if (this.currentRoute==="register") {
         <li class="nav-item px-2">
           <div style="display: flex; align-items: center;justify-content: center; ">
             <img src="../../../assets/images/loginlogo.png" alt="about us" class="icon-style px-0">
             <a class="nav-link active px-0" routerLink="/login">Login</a>
             </div>
         </li>}
-        @if (this.showUrl)
+        @if (this.currentRoute==='login')
         {<li class="nav-item px-2">
           <div style="display: flex; align-items: center;justify-content: center; ">
             <img src="../../../assets/images/register.png" alt="about us" class="icon-style px-0">
             <a class="nav-link active px-0" routerLink="/register">Register</a>
             </div>
         </li>}
+        @if (this.currentRoute==='dashboard'){
+          <div style="display: flex; align-items: center;justify-content: center; ">
+            <img src="../../../assets/images/logout.png" alt="about us" class="icon-style px-0">
+            <a class="nav-link active px-0" routerLink="/login" (click)="logout()">logout</a>
+            </div>
+        }
         
       </ul>
     </div>

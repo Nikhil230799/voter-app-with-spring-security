@@ -1,23 +1,21 @@
 // import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
 export const guardGuard: CanActivateFn = (route, state) => {
 
-  // const document=inject(DOCUMENT)
   const router = inject(Router);
+  const document = inject(DOCUMENT);
 
-  // token: string = "";
-
-  const token = localStorage.getItem("token");
+  const token = document.defaultView?.localStorage.getItem("token");
 
   if (token !== null) {
     return true;
   }
-  else
-  {
+  else {
     router.navigateByUrl("login")
     return false;
   }
- 
+
 };

@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
+import { jwtDecode } from 'jwt-decode';
+
 
 
 @Component({
@@ -32,11 +34,33 @@ export class LoginComponent implements OnInit {
     password: String
   };
 
+
+  // decodeToken(token:string) {
+  //   try {
+  //     return jwt_decode(token);
+  //   } catch (error) {
+  //     console.error('Error decoding JWT:', error);
+  //     return null;
+  //   }
+  // }
+
+  decodeToken(token: any): any {
+    try {
+      return jwtDecode(token)
+    }
+    catch (error) {
+      console.error('Error decoding JWT:', error);
+      return null;
+    }
+  }
+
   loginuser(userForm: any) {
     this.http.post<any>("http://localhost:2020/voting/auth/dologin", userForm)
       .subscribe((resp) => {
         if (resp.responseCode === 200 && resp.responseDesc === "login success") {
           localStorage.setItem("token", resp.data);
+          const decoded = this.decodeToken(resp.data);
+          console.log(typeof(decoded))
           this.router.navigateByUrl("dashboard");
         }
         if (resp.responseCode === 202 && resp.data === "Bad credentials") {
@@ -44,14 +68,15 @@ export class LoginComponent implements OnInit {
           this.toaster.error(resp.responseDesc)
         }
       }
-        // , error => {
-        //   console.error("Login error:", error);
-        //   alert("Login failed.");
-        // }
+        , error => {
+          console.error("Login error:", error);
+          alert("Login failed.");
+        }
       );
   }
 
   submitForm() {
+    console.log(this.userForm.value)
     if (this.userForm?.valid) {
       this.loginuser(this.userForm.value);
     }
