@@ -1,4 +1,5 @@
 import { DOCUMENT } from '@angular/common';
+import { Token } from '@angular/compiler';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -12,14 +13,17 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class NavbarComponent {
   document=inject(DOCUMENT);
   currentRoute!: string;
+isTokenPresent: any;
 
-
+  
   constructor(private route: ActivatedRoute) {
     this.currentRoute = this.route.snapshot.url.join('/');
+     this.isTokenPresent= this.document.defaultView?.localStorage.getItem('token');
+    
   }
 
   logout() {
-    this.document.defaultView?.localStorage.removeItem('token');
+    this.document.defaultView?.localStorage.clear();
   }
 
 }

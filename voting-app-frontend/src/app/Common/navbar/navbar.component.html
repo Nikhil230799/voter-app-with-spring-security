@@ -8,9 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <div style="display: flex; align-items: center;
-            justify-content: center; " class="px-2">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home" class="px-0 icon-style"></mat-icon>
+          <div style="display: flex; align-items: center; justify-content: center; " class="px-2">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"
+              class="px-0 icon-style"></mat-icon>
             <a class="nav-link active px-0" aria-current="page" routerLink="/">Home</a>
           </div>
         </li>
@@ -18,29 +18,29 @@
           <div style="display: flex; align-items: center;justify-content: center; ">
             <img src="../../../assets/images/about us.png" alt="about us" class="icon-style px-0">
             <a class="nav-link active px-0" routerLink="/about">about us</a>
-            </div>
+          </div>
         </li>
-        @if (this.currentRoute==="register") {
+        @if ((this.currentRoute==="register"||this.currentRoute==='about')&& isTokenPresent==null) {
         <li class="nav-item px-2">
           <div style="display: flex; align-items: center;justify-content: center; ">
             <img src="../../../assets/images/loginlogo.png" alt="about us" class="icon-style px-0">
             <a class="nav-link active px-0" routerLink="/login">Login</a>
-            </div>
+          </div>
         </li>}
-        @if (this.currentRoute==='login')
+        @if ((this.currentRoute==='login' ||this.currentRoute==='about') && isTokenPresent==null)
         {<li class="nav-item px-2">
           <div style="display: flex; align-items: center;justify-content: center; ">
             <img src="../../../assets/images/register.png" alt="about us" class="icon-style px-0">
             <a class="nav-link active px-0" routerLink="/register">Register</a>
-            </div>
+          </div>
         </li>}
-        @if (this.currentRoute==='dashboard'){
-          <div style="display: flex; align-items: center;justify-content: center; ">
-            <img src="../../../assets/images/logout.png" alt="about us" class="icon-style px-0">
-            <a class="nav-link active px-0" routerLink="/login" (click)="logout()">logout</a>
-            </div>
+        @if (this.currentRoute==='dashboard' || isTokenPresent!==null){
+        <div style="display: flex; align-items: center;justify-content: center; ">
+          <img src="../../../assets/images/logout.png" alt="about us" class="icon-style px-0">
+          <a class="nav-link active px-0" routerLink="/login" (click)="logout()">logout</a>
+        </div>
         }
-        
+
       </ul>
     </div>
   </div>

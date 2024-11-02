@@ -1,0 +1,22 @@
+.main-div {
+    /* height: vh; */
+    width: 100vw;
+    align-content: center;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.button-div {
+    position: relative;
+}
+
+table {
+    position: relative;
+    width: 80vw;
+    align-self: center;
+    width: 80%;
+}

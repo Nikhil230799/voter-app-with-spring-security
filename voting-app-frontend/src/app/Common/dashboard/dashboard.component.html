@@ -1,24 +1,8 @@
 <app-navbar></app-navbar>
-<div class=" md-8 main-div">
-    <h3>Welcome to Online Voting Portal</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Sr No</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let candidate of candidates">
-            <tr>
-                <td>{{candidate.cd_id}}</td>
-                <td>{{ candidate.cd_name }}</td>
-                <td><input type="radio" name="candidate" [value]=[candidate.cd_id] [(ngModel)]="radioButtonVal" /></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div style="text-align: center;" class="button-div">
-    <!-- <button mat-flat-button (click)="logout()">logout</button> -->
-    <button mat-raised-button (click)="giveVote()" >Submit</button>
-</div>
+@if (userRole==="voter"){
+    <app-user-dashboard></app-user-dashboard>
+}
+@if(userRole==="admin")
+{
+<app-admin-dashboard></app-admin-dashboard>
+}

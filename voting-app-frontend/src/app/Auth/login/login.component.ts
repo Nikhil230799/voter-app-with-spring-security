@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, LowerCasePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
@@ -28,21 +28,15 @@ export class LoginComponent implements OnInit {
   http = inject(HttpClient);
   router = inject(Router);
   toaster = inject(ToastService);
+  document = inject(DOCUMENT);
+
+ 
 
   userForm: any = {
     username: String,
     password: String
   };
 
-
-  // decodeToken(token:string) {
-  //   try {
-  //     return jwt_decode(token);
-  //   } catch (error) {
-  //     console.error('Error decoding JWT:', error);
-  //     return null;
-  //   }
-  // }
 
   decodeToken(token: any): any {
     try {
@@ -58,25 +52,24 @@ export class LoginComponent implements OnInit {
     this.http.post<any>("http://localhost:2020/voting/auth/dologin", userForm)
       .subscribe((resp) => {
         if (resp.responseCode === 200 && resp.responseDesc === "login success") {
-          localStorage.setItem("token", resp.data);
           const decoded = this.decodeToken(resp.data);
-          console.log(typeof(decoded))
+          console.log(decoded)
+          localStorage.setItem("token", resp.data);
+          this.document.defaultView?.localStorage.setItem("role", decoded.role);
+          this.document.defaultView?.localStorage.setItem("email", decoded.email);
+          this.document.defaultView?.localStorage.setItem("phoneno", decoded.phoneno);
           this.router.navigateByUrl("dashboard");
         }
         if (resp.responseCode === 202 && resp.data === "Bad credentials") {
-          this.router.navigateByUrl("dashboard");
           this.toaster.error(resp.responseDesc)
         }
-      }
-        , error => {
-          console.error("Login error:", error);
-          alert("Login failed.");
-        }
-      );
+      }, (error) => {
+        console.error("Login error:", error);
+        alert("Login failed.");
+      });
   }
 
   submitForm() {
-    console.log(this.userForm.value)
     if (this.userForm?.valid) {
       this.loginuser(this.userForm.value);
     }
