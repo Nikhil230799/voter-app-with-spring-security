@@ -2,6 +2,9 @@ package com.example.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,8 +18,17 @@ public class Candidates {
     @Column
     private int cd_votes;
 
-    @OneToMany(mappedBy = "usr_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usr_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Users> voters;
+
+    public List<Users> getVoters() {
+        return voters;
+    }
+
+    public void setVoters(List<Users> voters) {
+        this.voters = voters;
+    }
 
     public int getCd_id() {
         return cd_id;
@@ -42,18 +54,10 @@ public class Candidates {
         this.cd_votes = cd_votes;
     }
 
-    public List<Users> getVoters() {
-        return voters;
-    }
-
-    public void setVoters(List<Users> voters) {
-        this.voters = voters;
-    }
-
     @Override
     public String toString() {
         return "Candidates [cd_id=" + cd_id + ", cd_name=" + cd_name + ", cd_votes=" + cd_votes + ", voters=" + voters
                 + "]";
     }
-    
+
 }

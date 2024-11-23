@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.*;
@@ -18,5 +19,9 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 
     @Query(value = "SELECT * FROM usr_user WHERE BINARY usr_username = ?1", nativeQuery = true)
     Users getUserByUsername(String username);
+
+    // @Query(value = "Select * from usr_user join cd_candidates ON
+    // usr_user.votedto_id = cd_candidates.cd_id", nativeQuery = true)
+    // List<Users> findAllUserswithCandidate();
 
 }

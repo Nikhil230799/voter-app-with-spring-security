@@ -2,6 +2,8 @@ package com.example.entity;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,8 +49,16 @@ public class Users {
     private String usr_role = "voter";
 
     @ManyToOne
-    @JoinColumn(name = "cd_id")
-    private Candidates candidates;
+    @JoinColumn(name = "votedto_id")
+    private Candidates candidate_id;
+
+    public Candidates getCandidates() {
+        return candidate_id;
+    }
+
+    public void setCandidates(Candidates candidates) {
+        this.candidate_id = candidates;
+    }
 
     public int getUsr_id() {
         return usr_id;
@@ -114,19 +124,12 @@ public class Users {
         this.usr_role = usr_role;
     }
 
-    public Candidates getCandidates() {
-        return candidates;
-    }
-
-    public void setCandidates(Candidates candidates) {
-        this.candidates = candidates;
-    }
-
     @Override
     public String toString() {
         return "Users [usr_id=" + usr_id + ", usr_username=" + usr_username + ", usr_password=" + usr_password
                 + ", usr_email=" + usr_email + ", usr_phoneNo=" + usr_phoneNo + ", usr_voteStatus=" + usr_voteStatus
-                + ", usr_userStatus=" + usr_userStatus + ", usr_role=" + usr_role + ", candidates=" + candidates + "]";
+                + ", usr_userStatus=" + usr_userStatus + ", usr_role=" + usr_role + ", candidates=" + candidate_id
+                + "]";
     }
 
 }

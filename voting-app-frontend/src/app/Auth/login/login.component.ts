@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         }
       }, (error) => {
         console.error("Login error:", error);
-        alert("Login failed.");
+        this.toaster.error("Internal server error, Try again after some time.")
       });
   }
 
