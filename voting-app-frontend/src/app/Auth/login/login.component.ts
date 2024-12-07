@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   toaster = inject(ToastService);
   document = inject(DOCUMENT);
 
- 
+
 
   userForm: any = {
     username: String,
@@ -54,7 +54,8 @@ export class LoginComponent implements OnInit {
         if (resp.responseCode === 200 && resp.responseDesc === "login success") {
           const decoded = this.decodeToken(resp.data);
           console.log(decoded)
-          localStorage.setItem("token", resp.data);
+          if (decoded.exp > decoded.iat)
+            localStorage.setItem("token", resp.data);
           this.document.defaultView?.localStorage.setItem("role", decoded.role);
           this.document.defaultView?.localStorage.setItem("email", decoded.email);
           this.document.defaultView?.localStorage.setItem("phoneno", decoded.phoneno);
