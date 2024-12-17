@@ -99,7 +99,7 @@ public class AuthController {
         Authentication auth = null;
         try {
             auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword()));
+                    new UsernamePasswordAuthenticationToken(userDetails.getUsername().toLowerCase(), userDetails.getPassword()));
 
             userDetailsauth = (CustomUserDetails) customUserService.loadUserByUsername(userDetails.getUsername());
 

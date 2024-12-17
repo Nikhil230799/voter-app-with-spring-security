@@ -34,7 +34,7 @@
             <a class="nav-link active px-0" routerLink="/register">Register</a>
           </div>
         </li>}
-        @if (this.currentRoute==='dashboard' || isTokenPresent!==null){
+        @if (this.currentRoute==='dashboard' || !isTokenExpired ){
         <div style="display: flex; align-items: center;justify-content: center; ">
           <img src="../../../assets/images/logout.png" alt="about us" class="icon-style px-0">
           <a class="nav-link active px-0" routerLink="/login" (click)="logout()">logout</a>

@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
 import { jwtDecode } from 'jwt-decode';
+import { TokenDecoderService } from '../../service/token-decoder.service';
 
 
 
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
   router = inject(Router);
   toaster = inject(ToastService);
   document = inject(DOCUMENT);
+  tokenDecoder = inject(TokenDecoderService);
 
 
 
@@ -37,22 +39,11 @@ export class LoginComponent implements OnInit {
     password: String
   };
 
-
-  decodeToken(token: any): any {
-    try {
-      return jwtDecode(token)
-    }
-    catch (error) {
-      console.error('Error decoding JWT:', error);
-      return null;
-    }
-  }
-
   loginuser(userForm: any) {
     this.http.post<any>("http://localhost:2020/voting/auth/dologin", userForm)
       .subscribe((resp) => {
         if (resp.responseCode === 200 && resp.responseDesc === "login success") {
-          const decoded = this.decodeToken(resp.data);
+          const decoded = this.tokenDecoder.decodeToken(resp.data);
           console.log(decoded)
           if (decoded.exp > decoded.iat)
             localStorage.setItem("token", resp.data);
@@ -61,7 +52,7 @@ export class LoginComponent implements OnInit {
           this.document.defaultView?.localStorage.setItem("phoneno", decoded.phoneno);
           this.router.navigateByUrl("dashboard");
         }
-        if (resp.responseCode === 202 && resp.data === "Bad credentials") {
+        if (resp.responseCode === 202 && (resp.data === "Bad credentials" || resp.data==="User does not exists")) {
           this.toaster.error(resp.responseDesc)
         }
       }, (error) => {
