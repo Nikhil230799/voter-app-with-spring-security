@@ -45,5 +45,20 @@ public class AdminController {
         }
 
     }
+    
+    @GetMapping("/getCandidatesList")
+    public ResponseEntity<Response> getMethodName() {
+        try {
+            List<Candidates> list = candidatesReporsitory.findAll();
+            response = new Response(200, "users List", list);
+            return new ResponseEntity<Response>(response, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            response.setResponseCode(0);
+            response.setData(e.getMessage());
+            response.setResponseCode(500);
+            return new ResponseEntity<Response>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

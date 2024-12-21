@@ -1,65 +1,100 @@
 <div>
-    <h3>Welcome to online voting portal</h3>
-    <mat-form-field>
+    <h3 style="text-align: center;">Welcome to online voting portal</h3>
+
+    <div class="button-container" role="group" aria-label="Toggle Button Group">
+        <button type="button" [ngClass]="{'btn btn-outline-primary':true, 'active': tabSelector }" [disabled]="tabSelector" 
+            (click)=toggleTabSelector()> Elector details</button>
+        <button type="button" [ngClass]="{'btn btn-outline-primary':true, 'active': !tabSelector }" [disabled]="!tabSelector"
+            (click)="toggleTabSelector()">Voter details</button>
+    </div>
+
+    <mat-form-field style="margin-top: 5px;">
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)"  #input>
-      </mat-form-field>
+        <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
+    <div *ngIf="tabSelector">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource">
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource">
+            <!-- User ID Column -->
+            <ng-container matColumnDef="usr_id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let user"> {{user.usr_id}} </td>
+            </ng-container>
 
-        <!-- User ID Column -->
-        <ng-container matColumnDef="usr_id">
-            <th mat-header-cell *matHeaderCellDef> ID </th>
-            <td mat-cell *matCellDef="let user"> {{user.usr_id}} </td>
-        </ng-container>
+            <!-- Email Column -->
+            <ng-container matColumnDef="usr_email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let user"> {{user.usr_email}} </td>
+            </ng-container>
 
-        <!-- Email Column -->
-        <ng-container matColumnDef="usr_email">
-            <th mat-header-cell *matHeaderCellDef> Email </th>
-            <td mat-cell *matCellDef="let user"> {{user.usr_email}} </td>
-        </ng-container>
+            <!-- Phone Number Column -->
+            <ng-container matColumnDef="usr_phoneNo">
+                <th mat-header-cell *matHeaderCellDef> Phone No </th>
+                <td mat-cell *matCellDef="let user"> {{user.usr_phoneNo}} </td>
+            </ng-container>
 
-        <!-- Phone Number Column -->
-        <ng-container matColumnDef="usr_phoneNo">
-            <th mat-header-cell *matHeaderCellDef> Phone No </th>
-            <td mat-cell *matCellDef="let user"> {{user.usr_phoneNo}} </td>
-        </ng-container>
+            <!-- Role Column -->
+            <ng-container matColumnDef="usr_role">
+                <th mat-header-cell *matHeaderCellDef> Role </th>
+                <td mat-cell *matCellDef="let user"> {{user.usr_role}} </td>
+            </ng-container>
 
-        <!-- Role Column -->
-        <ng-container matColumnDef="usr_role">
-            <th mat-header-cell *matHeaderCellDef> Role </th>
-            <td mat-cell *matCellDef="let user"> {{user.usr_role}} </td>
-        </ng-container>
+            <!-- User Status Column -->
+            <ng-container matColumnDef="usr_userStatus">
+                <th mat-header-cell *matHeaderCellDef> User Status </th>
+                <td mat-cell *matCellDef="let user"> {{user.usr_userStatus ? 'Active' : 'Inactive'}} </td>
+            </ng-container>
 
-        <!-- User Status Column -->
-        <ng-container matColumnDef="usr_userStatus">
-            <th mat-header-cell *matHeaderCellDef> User Status </th>
-            <td mat-cell *matCellDef="let user"> {{user.usr_userStatus ? 'Active' : 'Inactive'}} </td>
-        </ng-container>
+            <!-- Username Column -->
+            <ng-container matColumnDef="usr_username">
+                <th mat-header-cell *matHeaderCellDef> Username </th>
+                <td mat-cell *matCellDef="let user"> {{user.usr_username}} </td>
+            </ng-container>
 
-        <!-- Username Column -->
-        <ng-container matColumnDef="usr_username">
-            <th mat-header-cell *matHeaderCellDef> Username </th>
-            <td mat-cell *matCellDef="let user"> {{user.usr_username}} </td>
-        </ng-container>
+            <!-- Vote Status Column -->
+            <ng-container matColumnDef="usr_voteStatus">
+                <th mat-header-cell *matHeaderCellDef> Vote Status </th>
+                <td mat-cell *matCellDef="let user"> {{user.usr_voteStatus ? 'Voted' : 'Not Voted'}} </td>
+            </ng-container>
 
-        <!-- Vote Status Column -->
-        <ng-container matColumnDef="usr_voteStatus">
-            <th mat-header-cell *matHeaderCellDef> Vote Status </th>
-            <td mat-cell *matCellDef="let user"> {{user.usr_voteStatus ? 'Voted' : 'Not Voted'}} </td>
-        </ng-container>
+            <!-- Candidate Name Column -->
+            <ng-container matColumnDef="cd_name">
+                <th mat-header-cell *matHeaderCellDef> Candidate Name </th>
+                <td mat-cell *matCellDef="let user"> {{user.candidates?.cd_name}} </td>
+            </ng-container>
 
-        <!-- Candidate Name Column -->
-        <ng-container matColumnDef="cd_name">
-            <th mat-header-cell *matHeaderCellDef> Candidate Name </th>
-            <td mat-cell *matCellDef="let user"> {{user.candidates?.cd_name}} </td>
-        </ng-container>
+            <!-- Table Header and Row Definitions -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <div *ngIf="!tabSelector">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="dataSource">
 
-        <!-- Table Header and Row Definitions -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <!-- User ID Column -->
+            <ng-container matColumnDef="cd_id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let voter"> {{voter.cd_id}} </td>
+            </ng-container>
 
+            <!-- Email Column -->
+            <ng-container matColumnDef="cd_name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let voter"> {{voter.cd_name}} </td>
+            </ng-container>
+
+            <!-- Phone Number Column -->
+            <ng-container matColumnDef="cd_votes">
+                <th mat-header-cell *matHeaderCellDef>Number of Votes    </th>
+                <td mat-cell *matCellDef="let voter"> {{voter.cd_votes}} </td>
+            </ng-container>
+
+            <!-- Table Header and Row Definitions -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        
+    </div>
     <div *ngIf="!dataSource" class="loading">
         Loading data...
     </div>

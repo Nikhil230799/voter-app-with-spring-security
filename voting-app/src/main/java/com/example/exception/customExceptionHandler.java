@@ -3,6 +3,7 @@ package com.example.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,4 +62,9 @@ public class customExceptionHandler extends RuntimeException {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = UsernameNotFoundException.class)
+    public ResponseEntity<Object> UsernameNotFoundException() {
+        Response response = new Response(500, "User does not exists", null);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
