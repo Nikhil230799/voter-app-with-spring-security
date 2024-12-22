@@ -3,7 +3,6 @@ package com.example.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
@@ -18,7 +17,7 @@ public class Candidates {
     @Column
     private int cd_votes;
 
-    @OneToMany(mappedBy = "usr_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "candidate_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Users> voters;
 

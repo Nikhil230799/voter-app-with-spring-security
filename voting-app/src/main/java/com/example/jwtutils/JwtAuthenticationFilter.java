@@ -65,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             response.getWriter().write(objectMapper.writeValueAsString(response2));
             return;
         }
-        System.out.println(authHeader);
+
         try {
             final String jwt = authHeader;
             final String username = jwtService.extractUsername(jwt);

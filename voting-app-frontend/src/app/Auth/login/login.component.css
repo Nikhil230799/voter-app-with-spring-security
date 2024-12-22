@@ -61,7 +61,7 @@ display: flex;
 }
 
 .example-button-row>button{
-    background-color:  rgb(65, 240, 147);
+    background-color: rgb(11, 188, 247); /* rgb(65, 240, 147) */;
     color: #1c1a9f;
 }
 

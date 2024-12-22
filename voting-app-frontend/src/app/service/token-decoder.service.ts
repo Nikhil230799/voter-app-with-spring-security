@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 export class TokenDecoderService {
 
   decodeToken(token: any): any {
+    console.log(token)
     try {
       return jwtDecode(token)
     }
