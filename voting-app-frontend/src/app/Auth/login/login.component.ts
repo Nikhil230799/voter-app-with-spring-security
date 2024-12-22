@@ -50,9 +50,11 @@ export class LoginComponent implements OnInit {
           this.document.defaultView?.localStorage.setItem("role", decoded.role);
           this.document.defaultView?.localStorage.setItem("email", decoded.email);
           this.document.defaultView?.localStorage.setItem("phoneno", decoded.phoneno);
+          this.document.defaultView?.localStorage.setItem("votestatus", decoded.votestatus);
+       
           this.router.navigateByUrl("dashboard");
         }
-        if (resp.responseCode === 202 && (resp.data === "Bad credentials" || resp.data==="User does not exists")) {
+        if (resp.responseCode === 202 && (resp.data === "Bad credentials" || resp.data === "User does not exists")) {
           this.toaster.error(resp.responseDesc)
         }
       }, (error) => {

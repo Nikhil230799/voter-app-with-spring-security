@@ -107,7 +107,7 @@ public class AuthController {
             return new ResponseEntity<>(new Response(202, "User details are invalid", e.getMessage()),
                     HttpStatus.ACCEPTED);
         }
-
+        
         if (auth.isAuthenticated()) {
             String jwtToken = jwtService.generateToken(userDetailsauth);
 

@@ -41,6 +41,7 @@ public class JwtService {
         Claims.put("role", userDetails.getUser().getUsr_role());
         Claims.put("email", userDetails.getUser().getUsr_email());
         Claims.put("phoneno", userDetails.getUser().getUsr_phoneNo());
+        Claims.put("votestatus", userDetails.getUser().isUsr_voteStatus());
         return generateToken(Claims, userDetails);
     }
 

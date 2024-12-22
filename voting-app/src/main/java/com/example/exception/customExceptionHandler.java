@@ -67,4 +67,10 @@ public class customExceptionHandler extends RuntimeException {
         Response response = new Response(500, "User does not exists", null);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = CandidatesNotFoundException.class)
+    public ResponseEntity<Object> CandidatesNotFoundException() {
+        Response response = new Response(500, "Candidate does not exists", null);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -12,12 +12,16 @@
             <tr>
                 <td>{{candidate.cd_id}}</td>
                 <td>{{ candidate.cd_name }}</td>
-                <td><input type="radio" name="candidate" [value]=[candidate.cd_id] [(ngModel)]="radioButtonVal" /></td>
+                <td><input type="radio" name="candidate" [value]=[candidate.cd_id] [(ngModel)]="radioButtonVal"
+                        [disabled]="voteStatus" /></td>
             </tr>
         </tbody>
     </table>
 </div>
 <div style="text-align: center;" class="button-div">
-  
-    <button mat-raised-button (click)="giveVote()" >Submit</button>
+    <lib-toastify-toast-container position="bottom-right" [preventDuplicates]="true"></lib-toastify-toast-container>
+    <button mat-raised-button [disabled]="radioButtonVal === 0" (click)="giveVote()">Submit</button>
+    <div *ngIf="voteStatus!=='false'">
+        <h1> You have already voted.</h1>
+    </div>
 </div>
