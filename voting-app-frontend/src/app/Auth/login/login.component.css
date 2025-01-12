@@ -1,67 +1,91 @@
 .img-class {
-    height: 92.5vh;
+    /* height: 92.5vh; */
+    height: 100vh;
     width: 100vw;
     position: relative;
     display: flex;
     justify-content: center;
     /* background-image: linear-gradient(144deg, #0eff7e ,#FCEE21); */
-    /* background-color: red; */
+    background-image: url(../../../assets/images/Voting-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .main-div {
     display: flex;
-    background-color: white;
+    /* background-color: white; */
     text-align: center;
     align-self: center;
     align-content: center;
     height: 550px;
     width: 900px;
+    border-radius: 0 18px 18px 0;
 }
 
 .left-div {
     text-align: center;
     align-self: center;
     align-content: center;
-    background-color: white;
-    height: 550px;
+    /* background-color: white; */
+    height: 600px;
     width: 450px;
 }
 
 .right-div {
     background-color: #f2f2f2;
     border-radius: 18px;
-    height: 550px;
+    height: 600px;
     width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     align-self: center;
+    margin: 0;
+    padding: 0;
 
 }
 
-.right-div>p {
-    width: 80%;
 
-}
 
-.login-img{
+.login-img {
     position: relative;
-display: flex;    
-    
-    height: 150px;
-    width: 150px;
+    /* display: flex; */
+    height: 80px;
+    width: 80px;
+    align-self: center;
 }
 
-.login-img>img{
-    
-    height: 100%;
-    width: 100%;
-    position: absolute;
-}
 
-.example-button-row>button{
-    background-color: rgb(11, 188, 247); /* rgb(65, 240, 147) */;
+.example-button-row>button {
+    background-color: rgb(11, 188, 247);
+    /* rgb(65, 240, 147) */
+    ;
     color: #1c1a9f;
 }
 
+
+.form-class {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.auth-links a {
+    text-decoration: underline;
+    color: #007bff;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+.auth-links a:hover {
+    text-decoration: none;
+    color: #0056b3;
+}

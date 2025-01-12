@@ -6,17 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, DOCUMENT, LowerCasePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
 import { jwtDecode } from 'jwt-decode';
 import { TokenDecoderService } from '../../service/token-decoder.service';
+import { RegisterComponent } from "../register/register.component";
+import { RightDivComponent } from "../right-div/right-div.component";
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NavbarComponent, MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule, AngularToastifyModule],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule, AngularToastifyModule, RouterLink, RegisterComponent, RightDivComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -31,8 +33,11 @@ export class LoginComponent implements OnInit {
   toaster = inject(ToastService);
   document = inject(DOCUMENT);
   tokenDecoder = inject(TokenDecoderService);
+  currentRoute!:String;
 
-
+  constructor(private route: ActivatedRoute) {
+    this.currentRoute = this.route.snapshot.url.join('/');
+  }
 
   userForm: any = {
     username: String,
@@ -51,7 +56,7 @@ export class LoginComponent implements OnInit {
           this.document.defaultView?.localStorage.setItem("email", decoded.email);
           this.document.defaultView?.localStorage.setItem("phoneno", decoded.phoneno);
           this.document.defaultView?.localStorage.setItem("votestatus", decoded.votestatus);
-       
+
           this.router.navigateByUrl("dashboard");
         }
         if (resp.responseCode === 202 && (resp.data === "Bad credentials" || resp.data === "User does not exists")) {

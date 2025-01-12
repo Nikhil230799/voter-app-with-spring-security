@@ -9,9 +9,10 @@ import { guardGuard } from './Gaurd/guard.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch:'full' },
-    { path: 'login', component: LoginComponent },
-    { path: 'about', component: AboutUsComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'dashboard', component: DashboardComponent , canActivate:[guardGuard]},
+    { path: 'login', component: LoginComponent, pathMatch:'full'  },
+    { path: 'about', component: AboutUsComponent , pathMatch:'full' },
+    { path: 'register', component: LoginComponent, pathMatch:'full'  },
+    { path: 'dashboard', component: DashboardComponent , canActivate:[guardGuard], pathMatch:'full' },
+    { path: 'forget-password', component: RegisterComponent , pathMatch:'full' },
     // { path: '**', component: RouteNotFoundComponent }
 ];
