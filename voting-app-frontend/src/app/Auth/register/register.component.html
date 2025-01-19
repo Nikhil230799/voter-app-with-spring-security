@@ -10,8 +10,10 @@
         class="text-danger " style="font-weight: lighter; font-size: 15px;">
         <span *ngIf="userForm.controls['usr_username'].errors?.['required']"> Name is
             required.</span>
-        <span *ngIf="userForm.controls['usr_username'].errors?.['minlength']">Minimum length
-            is 4.</span>
+        <span *ngIf="userForm.controls['usr_username'].errors?.['minlength']">Minimum length is 4.</span>
+        <small *ngIf="userForm.get('usr_username')?.errors?.['customError']">
+            {{ userForm.get('usr_username')?.errors?.['customError'] }}
+        </small>
     </div>
 
     <mat-form-field appearance="outline" style="margin-bottom: -1.25em ;">
@@ -20,18 +22,23 @@
     </mat-form-field>
     <div *ngIf="userForm?.get('usr_password')?.invalid && (userForm?.get('usr_password')?.touched ||userForm?.get('usr_password')?.dirty) "
         class="text-danger " style="font-weight: lighter; font-size: 15px;">
-        <span *ngIf="userForm.controls['usr_password'].errors?.['required']"> Password is
-            required.</span>
+        <span *ngIf="userForm.controls['usr_password'].errors?.['required']"> Password is required.</span>
+        <small *ngIf="userForm.get('usr_password')?.errors?.['customError']">
+            {{ userForm.get('usr_password')?.errors?.['customError'] }}
+        </small>
     </div>
 
     <mat-form-field appearance="outline" style="margin-bottom: -1.25em ;">
         <mat-label>Enter your Email</mat-label>
         <input type="email" matInput placeholder="email" id="usr_email" formControlName="usr_email">
     </mat-form-field>
-    <div *ngIf="userForm?.get('usr_email')?.invalid && (userForm?.get('usr_email')?.touched ||userForm?.get('usr_email')?.dirty) "
+    <div *ngIf="userForm?.get('usr_email')?.invalid && (userForm?.get('usr_email')?.touched || userForm?.get('usr_email')?.dirty) "
         class="text-danger" style="font-weight: lighter; font-size: 15px;">
-        <span *ngIf="userForm.controls['usr_email'].errors?.['required']"> Email is
-            required.</span>
+        <span *ngIf="userForm.controls['usr_email'].errors?.['required']"> Email is required.</span>
+        <span *ngIf="userForm.controls['usr_email'].hasError('email')"> Invalid email..</span>
+        <small *ngIf="userForm.get('usr_email')?.errors?.['customError']">
+            {{ userForm.get('usr_email')?.errors?.['customError'] }}
+        </small>
     </div>
 
     <mat-form-field appearance="outline" style="margin-bottom: -1.25em ;">
@@ -40,13 +47,15 @@
     </mat-form-field>
     <div *ngIf="userForm?.get('usr_phoneNo')?.invalid && (userForm?.get('usr_phoneNo')?.touched ||userForm?.get('usr_phoneNo')?.dirty) "
         class="text-danger " style="font-weight: lighter; font-size: 15px;">
-        <span *ngIf="userForm.controls['usr_phoneNo'].errors?.['required']"> Phone number is
-            required.</span>
+        <span *ngIf="userForm.controls['usr_phoneNo'].errors?.['required']"> Phone number is required.</span>
         <span
             *ngIf="userForm.controls['usr_phoneNo'].errors?.['minlength'] || userForm.controls['usr_phoneNo'].errors?.['maxlength'] ">
             Phone number length can be should be 8 to 12.</span>
+        <small *ngIf="userForm.get('usr_phoneNo')?.errors?.['customError']">
+            {{ userForm.get('usr_phoneNo')?.errors?.['customError'] }}
+        </small>
     </div>
-    <mat-form-field appearance="outline" style="margin-bottom: -1.25em ;">
+    <!-- <mat-form-field appearance="outline" style="margin-bottom: -1.25em ;">
         <mat-label>Enter your contact</mat-label>
         <input type="text" matInput placeholder="phoneno" id="test" formControlName="usr_phoneNo">
     </mat-form-field>
@@ -57,7 +66,7 @@
         <span
             *ngIf="userForm.controls['usr_phoneNo'].errors?.['minlength'] || userForm.controls['usr_phoneNo'].errors?.['maxlength'] ">
             Phone number length can be should be 8 to 12.</span>
-    </div>
+    </div> -->
 
 
 

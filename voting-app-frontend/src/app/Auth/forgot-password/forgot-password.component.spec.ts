@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RightDivComponent } from './right-div.component';
+import { ForgotPasswordComponent } from './forgot-password.component';
 
-describe('RightDivComponent', () => {
-  let component: RightDivComponent;
-  let fixture: ComponentFixture<RightDivComponent>;
+describe('ForgotPasswordComponent', () => {
+  let component: ForgotPasswordComponent;
+  let fixture: ComponentFixture<ForgotPasswordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RightDivComponent]
+      imports: [ForgotPasswordComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RightDivComponent);
+    fixture = TestBed.createComponent(ForgotPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

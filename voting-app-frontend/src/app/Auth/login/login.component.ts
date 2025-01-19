@@ -1,30 +1,24 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from "../../Common/navbar/navbar.component";
+import { DOCUMENT, NgIf } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule, DOCUMENT, LowerCasePipe } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ToastService, AngularToastifyModule } from 'angular-toastify';
-import { jwtDecode } from 'jwt-decode';
+import { AngularToastifyModule, ToastService } from 'angular-toastify';
+
+import { Router, RouterLink } from '@angular/router';
 import { TokenDecoderService } from '../../service/token-decoder.service';
-import { RegisterComponent } from "../register/register.component";
-import { RightDivComponent } from "../right-div/right-div.component";
-
-
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule, AngularToastifyModule, RouterLink, RegisterComponent, RightDivComponent],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, AngularToastifyModule, NgIf, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 
-export class LoginComponent implements OnInit {
-
+export class LoginComponent {
 
   title = 'login page';
   formBuilder = inject(FormBuilder);
@@ -33,16 +27,18 @@ export class LoginComponent implements OnInit {
   toaster = inject(ToastService);
   document = inject(DOCUMENT);
   tokenDecoder = inject(TokenDecoderService);
-  currentRoute!:String;
-
-  constructor(private route: ActivatedRoute) {
-    this.currentRoute = this.route.snapshot.url.join('/');
-  }
-
+  currentRoute!: String;
   userForm: any = {
     username: String,
     password: String
   };
+
+  ngOnInit(): void {
+    this.userForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', Validators.required]
+    });
+  }
 
   loginuser(userForm: any) {
     this.http.post<any>("http://localhost:2020/voting/auth/dologin", userForm)
@@ -56,7 +52,6 @@ export class LoginComponent implements OnInit {
           this.document.defaultView?.localStorage.setItem("email", decoded.email);
           this.document.defaultView?.localStorage.setItem("phoneno", decoded.phoneno);
           this.document.defaultView?.localStorage.setItem("votestatus", decoded.votestatus);
-
           this.router.navigateByUrl("dashboard");
         }
         if (resp.responseCode === 202 && (resp.data === "Bad credentials" || resp.data === "User does not exists")) {
@@ -74,10 +69,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.userForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', Validators.required]
-    });
-  }
+
+
 }

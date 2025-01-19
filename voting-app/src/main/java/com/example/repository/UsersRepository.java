@@ -16,7 +16,7 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     @Query(value = "select * from usr_user where usr_username=?1 or usr_email=?2", nativeQuery = true)
     Optional<Users> findByUsernameAndEmail(String usr_username, String usr_email);
 
-    @Query(value = "SELECT * FROM usr_user WHERE BINARY usr_username = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM usr_user WHERE BINARY LOWER(usr_username) = LOWER(?1)", nativeQuery = true)
     Users getUserByUsername(String username);
 
     // @Query(value = "Select * from usr_user join cd_candidates ON

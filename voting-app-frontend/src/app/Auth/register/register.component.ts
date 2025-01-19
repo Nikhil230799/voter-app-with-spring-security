@@ -37,8 +37,6 @@ export class RegisterComponent {
   }
 
   submitForm() {
-    console.log(this.userForm.value)
-    console.log(this.userForm)
     if (this.userForm?.valid) {
       this.registeruser(this.userForm.value);
     }
@@ -49,19 +47,22 @@ export class RegisterComponent {
         console.log(resp)
         if (resp.responseCode === 202 && resp.responseDesc === "User registered successfully") {
           this.toaster.success("User registered successfully")
+          this.userForm.clear();
         }
 
       }, (error) => {
-        console.error("Login error:", error.error.responseCode);
-        console.error("Login error:", error.error.data);
-        if (error.error.responseCode === 400) {
-          this.toaster.error("Invalid password format.")
+        for (const field in error.error.data) {
+          const errorMessage = error.error.data[field];
+          this.userForm.get(field)?.setErrors({ customError: errorMessage });
         }
-         else if (error.error.responseCode === 409) {
+        // if (error.error.responseCode === 400) {
+        //   this.toaster.error(error.error.data)
+        // }
+        if (error.error.responseCode === 409) {
           this.toaster.error("User is already registered.")
         }
         else
-        this.toaster.error("Internal server error, Try again after some time.")
+          this.toaster.error("Internal server error, Try again after some time.")
       });
   }
 }
