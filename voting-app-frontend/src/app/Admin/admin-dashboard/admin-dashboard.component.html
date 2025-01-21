@@ -2,12 +2,18 @@
     <h3 style="text-align: center;">Welcome to online voting portal</h3>
 
     <div class="button-container" role="group" aria-label="Toggle Button Group">
-        <button type="button" [ngClass]="{'btn btn-primary ':true, 'active': !tabSelector }" [disabled]="!tabSelector"
+        <button type="button" [ngClass]="{'btn-css btn btn-primary ':true, 'active': !tabSelector }" [disabled]="!tabSelector"
             (click)="toggleTabSelector()">Elector details</button>
-        <button type="button" [ngClass]="{'btn btn-primary' :true, 'active': tabSelector }" [disabled]="tabSelector"
+        <button type="button" [ngClass]="{'btn-css btn btn-primary' :true, 'active': tabSelector }" [disabled]="tabSelector"
             (click)="toggleTabSelector()"> Voter details</button>
     </div>
+    <hr />
 
+    <div class="button-container" role="group" aria-label="Toggle Button Group">
+
+        <button type="button" class="btn btn-link" (click)="exportToExcel()">Export to excel</button>
+        <!-- <button type="button" class="btn btn-link"> Export to pdf</button> -->
+    </div>
     <mat-form-field style="margin-top: 5px;">
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" #input>

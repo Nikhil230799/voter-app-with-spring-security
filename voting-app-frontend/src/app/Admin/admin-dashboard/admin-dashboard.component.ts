@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgClass, NgIf } from '@angular/common';
+import { blob } from 'node:stream/consumers';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -18,7 +19,7 @@ import { NgClass, NgIf } from '@angular/common';
 export class AdminDashboardComponent implements OnInit {
 
   tabSelector: boolean = true
-
+  reportType: string = this.tabSelector ? "user" : "voter";
   voterList!: {
     cd_id: number;
     cd_name: String;
@@ -59,6 +60,8 @@ export class AdminDashboardComponent implements OnInit {
     this.getUserdetails();
   }
 
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     if (this.dataSource != null) { this.dataSource.filter = filterValue.trim().toLowerCase(); }
@@ -67,6 +70,7 @@ export class AdminDashboardComponent implements OnInit {
 
   toggleTabSelector() {
     this.tabSelector = !this.tabSelector
+    this.reportType = this.tabSelector ? "user" : "voter"; 
     if (this.tabSelector) {
       this.getUserdetails()
       this.displayedColumns = [
@@ -103,7 +107,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getUserdetails() {
-    this.http.get("http://localhost:2020/voting/admin/userList").subscribe((resp: any) => {
+    this.http.get(`http://localhost:2020/voting/admin/userList`).subscribe((resp: any,) => {
       this.userList = resp.data;
       // console.log(this.userList)
       this.dataSource = new MatTableDataSource(this.userList);
@@ -111,6 +115,22 @@ export class AdminDashboardComponent implements OnInit {
     }, error => {
       console.log(error)
       this.router.navigateByUrl("login")
+    })
+  }
+
+  exportToExcel() {
+    this.http.get(`http://localhost:2020/voting/admin/userList/${this.reportType}`, { responseType: 'blob' }).subscribe((resp: any,) => {
+      const blob = new Blob([resp], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'userlist.xlsx'; // File name for the download
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, error => {
+      console.error('Error downloading the file', error);
     })
   }
 }
