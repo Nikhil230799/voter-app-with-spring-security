@@ -19,7 +19,7 @@ import { blob } from 'node:stream/consumers';
 export class AdminDashboardComponent implements OnInit {
 
   tabSelector: boolean = true
-  reportType: string = this.tabSelector ? "user" : "voter";
+  reportType: string = this.tabSelector ? "user" : "candidates";
   voterList!: {
     cd_id: number;
     cd_name: String;
@@ -70,7 +70,7 @@ export class AdminDashboardComponent implements OnInit {
 
   toggleTabSelector() {
     this.tabSelector = !this.tabSelector
-    this.reportType = this.tabSelector ? "user" : "voter"; 
+    this.reportType = this.tabSelector ? "user" : "candidates"; 
     if (this.tabSelector) {
       this.getUserdetails()
       this.displayedColumns = [
@@ -119,18 +119,19 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   exportToExcel() {
-    this.http.get(`http://localhost:2020/voting/admin/userList/${this.reportType}`, { responseType: 'blob' }).subscribe((resp: any,) => {
+    this.http.get(`http://localhost:2020/voting/admin/userList/excel/${this.reportType}`, { responseType: 'blob' }).subscribe((resp: any,) => {
       const blob = new Blob([resp], { type: 'application/octet-stream' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'userlist.xlsx'; // File name for the download
+      a.download = `${this.reportType}list.xlsx`; // File name for the download
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     }, error => {
       console.error('Error downloading the file', error);
+      this.router.navigateByUrl("login");
     })
   }
 }
