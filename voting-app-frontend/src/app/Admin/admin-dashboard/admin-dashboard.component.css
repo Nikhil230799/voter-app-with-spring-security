@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    margin: 20px 0;
+  
+  }
+  .btn-css{
+    margin: 0px 10px  ;
+    background-color: rgb(11, 188, 247);
+    color: black;
+  }

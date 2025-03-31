@@ -1,0 +1,38 @@
+.login-img {
+    position: relative;
+    height: 80px;
+    width: 80px;
+    align-self: center;
+}
+
+.form-class {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-button-row>button {
+    background-color: rgb(11, 188, 247);
+    color: #1c1a9f;
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    /* depending on padding of auth ling the input box size is changing */
+    /* padding: 0 5rem; */
+    width: 400px;
+}
+
+.auth-links a {
+    text-decoration: underline;
+    color: #007bff;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+.auth-links a:hover {
+    text-decoration: none;
+    color: #0056b3;
+}

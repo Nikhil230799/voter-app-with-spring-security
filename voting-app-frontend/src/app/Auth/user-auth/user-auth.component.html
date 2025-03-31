@@ -1,0 +1,21 @@
+<title>{{title}}</title>
+<div>
+    <!-- <app-navbar></app-navbar> -->
+    <div class="img-class">
+        <div class="main-div">
+            <div class="left-div">
+                <img src="../../../assets/images/img-01.webp" alt="login img">
+            </div>
+            <div class="right-div">
+                @if (currentRoute==="login") {
+                <app-login></app-login>
+
+                }
+                @else if (currentRoute==="register")
+                {<app-register></app-register>}
+                @else if (currentRoute==="forget-password")
+                {<app-forgot-password></app-forgot-password>}
+            </div>
+        </div>
+    </div>
+</div>

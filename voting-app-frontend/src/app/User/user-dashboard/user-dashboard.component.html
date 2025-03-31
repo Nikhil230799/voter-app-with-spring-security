@@ -1,0 +1,27 @@
+<div class=" md-8 main-div">
+    <h3>Welcome to Online Voting Portal</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sr No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Option Selector</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let candidate of candidates">
+            <tr>
+                <td>{{candidate.cd_id}}</td>
+                <td>{{ candidate.cd_name }}</td>
+                <td><input type="radio" name="candidate" [value]=[candidate.cd_id] [(ngModel)]="radioButtonVal"
+                        [disabled]="voteStatus" /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;" class="button-div">
+    <lib-toastify-toast-container position="bottom-right" [preventDuplicates]="true"></lib-toastify-toast-container>
+    <button mat-raised-button [disabled]="radioButtonVal === 0" (click)="giveVote()">Submit</button>
+    <div *ngIf="voteStatus!=='false'">
+        <h1> You have already voted.</h1>
+    </div>
+</div>

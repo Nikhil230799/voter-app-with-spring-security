@@ -1,0 +1,46 @@
+.img-class {
+    /* height: 92.5vh; */
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* background-image: linear-gradient(144deg, #0eff7e ,#FCEE21); */
+    background-image: url(../../../assets/images/Voting-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-div {
+    display: flex;
+    /* background-color: white; */
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    height: 550px;
+    width: 900px;
+    border-radius: 0 18px 18px 0;
+}
+
+.left-div {
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    /* background-color: white; */
+    height: 600px;
+    width: 450px;
+}
+
+.right-div {
+    background-color: #f2f2f2;
+    border-radius: 18px;
+    height: 600px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,8 @@
+<app-navbar></app-navbar>
+@if (userRole==="voter"){
+    <app-user-dashboard></app-user-dashboard>
+}
+@if(userRole==="admin")
+{
+<app-admin-dashboard></app-admin-dashboard>
+}
