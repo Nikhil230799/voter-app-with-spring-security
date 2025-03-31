@@ -18,7 +18,6 @@ import com.example.entity.Users;
 import com.example.repository.CandidatesReporsitory;
 import com.example.repository.UsersRepository;
 
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -33,12 +32,6 @@ public class AdminController {
     @Autowired
     private CandidatesReporsitory candidatesReporsitory;
 
-    @GetMapping("/test")
-    public ResponseEntity<Response> teString() {
-        response = new Response(200, "res", "hellow");
-        return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
-
-    }
 
     @GetMapping("/userList")
     public ResponseEntity<Response> getUserList() {

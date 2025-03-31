@@ -59,6 +59,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers("/auth/**").permitAll();
+                    authorize.requestMatchers("/captcha/**").permitAll();
                     authorize.requestMatchers("/user/**").hasAnyAuthority("voter");
                     authorize.requestMatchers("/admin/**").hasAnyAuthority("admin");
                     authorize.anyRequest().authenticated();

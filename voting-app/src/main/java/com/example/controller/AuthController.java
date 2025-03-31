@@ -99,7 +99,8 @@ public class AuthController {
         Authentication auth = null;
         try {
             auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userDetails.getUsername().toLowerCase(), userDetails.getPassword()));
+                    new UsernamePasswordAuthenticationToken(userDetails.getUsername().toLowerCase(),
+                            userDetails.getPassword()));
 
             userDetailsauth = (CustomUserDetails) customUserService.loadUserByUsername(userDetails.getUsername());
 
@@ -107,7 +108,7 @@ public class AuthController {
             return new ResponseEntity<>(new Response(202, "User details are invalid", e.getMessage()),
                     HttpStatus.ACCEPTED);
         }
-        
+
         if (auth.isAuthenticated()) {
             String jwtToken = jwtService.generateToken(userDetailsauth);
 
@@ -117,9 +118,6 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/test")
-    public String teString() {
-        return new String("hello");
-    }
+
 
 }

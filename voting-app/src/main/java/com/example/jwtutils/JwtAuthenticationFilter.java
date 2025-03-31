@@ -1,6 +1,8 @@
 package com.example.jwtutils;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -28,6 +30,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Value("${server.servlet.context-path}")
     private String defaultPath;
 
+    @Value("${bypass.url}")
+    private String bypassUrl;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtService jwtService;
@@ -50,8 +55,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String requestPath = request.getRequestURI();
-        String excludedPaths = defaultPath.concat("/auth");
-        if (requestPath.startsWith(excludedPaths)) {
+        List<String> allowedPaths = Arrays.stream(bypassUrl.split(","))
+                .map(path -> defaultPath + path)
+                .toList();
+
+        if (allowedPaths.stream().anyMatch(requestPath::startsWith)) {
             filterChain.doFilter(request, response); // Allow the request without JWT validation
             return;
         }
