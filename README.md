@@ -1,2 +1,2 @@
 # voter-app-with-spring-security
-Use of Spring boot and angular for making voting application.
+Use of Spring boot,spring security, jwt based authentication and authorization and angular for making voting application. Implementation of redis for storing of captch and verfication. 
