@@ -19,7 +19,7 @@ import com.example.repository.CandidatesReporsitory;
 import com.example.repository.UsersRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
-
+    
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
